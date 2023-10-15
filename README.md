@@ -1,4 +1,4 @@
-# Student Records Management Web Application
+# StudentPortal
 
 A containerized web application for managing student records. We use Docker Compose to create a seamless environment for the application and ensure data persistence through Docker volumes.
 

@@ -1,0 +1,41 @@
+# Specify the version of the Docker Compose file format
+version: "3"
+
+# Define the services that make up your application
+services:
+  # Service 'app' represents your application
+  app:
+    # Build the 'app' service using the Dockerfile in the './app' directory
+    build: ./app
+
+    # Link this service to the 'db' service, allowing 'app' to communicate with 'db'
+    links:
+      - db
+
+    # Map port 5000 on the host to port 5000 in the container
+    ports:
+      - "5000:5000"
+
+    # Ensure that 'app' starts only after 'db' has started
+    depends_on:
+      - db
+
+  # Service 'db' represents the MySQL database
+  db:
+    # Use the 'mysql:8.1' image from Docker Hub
+    image: mysql:8.1
+
+    # Expose port 32000 on the host to port 3306 in the container
+    ports:
+      - "32000:3306"
+
+    # Set environment variables, such as the MySQL root password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+    # Mount volumes to the container for data and initialization scripts
+    volumes:
+      # Mount the 'init.sql' file from the host to the MySQL initialization directory
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # Mount the 'data' directory from the host to the MySQL data directory
+      - ./data:/var/lib/mysql

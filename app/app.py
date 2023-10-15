@@ -24,7 +24,7 @@ def index():
     """
     This route provides a welcome message when accessing the root URL.
     """
-    return jsonify({'message': 'Welcome to the Student Records API'})
+    return jsonify({'message': 'Welcome to the StudentPortal API'})
 
 
 @app.route('/add_student', methods=['POST'])
